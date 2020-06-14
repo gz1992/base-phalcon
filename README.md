@@ -1,1 +1,1 @@
-For everyone that needs a organized phalcon project.
+For everyone that needs an organized phalcon project.
