@@ -7,9 +7,13 @@ use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Php as PhpEngine;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
-use Phalcon\Session\Adapter\Stream as SessionAdapter;
+// use Phalcon\Session\Adapter\Stream as SessionAdapter;
+use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Session\Manager as SessionManager;
-use Phalcon\Url as UrlResolver;
+use Phalcon\Mvc\Url as UrlResolver;
+use Phalcon\DI\FactoryDefault;
+use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+use Phalcon\Http\Response\Cookies;
 
 /**
  * Shared configuration service
@@ -47,10 +51,9 @@ $di->setShared('view', function () {
             $volt = new VoltEngine($view, $this);
 
             $volt->setOptions([
-                'path' => $config->application->cacheDir,
-                'separator' => '_'
+                'compiledPath' => $config->application->cacheDir,
+                'compiledSeparator' => '_'
             ]);
-            
             $compiler = $volt->getCompiler();
             $compiler->addFunction('number_format','number_format');
             $compiler->addFunction('explode','explode');

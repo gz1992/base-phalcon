@@ -8,6 +8,8 @@ class ControllerBase extends Controller
     // Implement common logic
     public function beforeExecuteRoute()
     {
+        
+        $this->view->disable();
         $pastedefault = "";
         $logoonshare = "logo.png";
         $titleshare = "WebPage";
