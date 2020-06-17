@@ -77,8 +77,8 @@ $di->setShared('db', function () {
     $class = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
     $params = [
         'host'     => $config->database->host,
-        'username' => $config->database->username,
-        'password' => $config->database->password,
+        'username' => 'piseiro',
+        'password' => 'admin',
         'dbname'   => $config->database->dbname,
         'charset'  => $config->database->charset
     ];

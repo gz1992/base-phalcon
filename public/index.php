@@ -40,7 +40,14 @@ try {
      * Handle the request
      */
     $application = new \Phalcon\Mvc\Application($di);
-
+    // var_dump($application);
+    // echo "</br>";
+    // try{
+    //     $application->handle()->getContent();
+    // }
+    // catch(Exception $e){
+    //     var_dump($e);
+    // }
     echo str_replace(["\n","\r","\t"], '', $application->handle()->getContent());
 
 } catch (\Exception $e) {
