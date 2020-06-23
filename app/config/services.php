@@ -1,16 +1,13 @@
 <?php
-declare(strict_types=1);
 
-use Phalcon\Escaper;
-use Phalcon\Flash\Direct as Flash;
-use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Php as PhpEngine;
-use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
-// use Phalcon\Session\Adapter\Stream as SessionAdapter;
-use Phalcon\Session\Adapter\Files as SessionAdapter;
-use Phalcon\Session\Manager as SessionManager;
 use Phalcon\Mvc\Url as UrlResolver;
+use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
+use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
+use Phalcon\Session\Adapter\Files as SessionAdapter;
+use Phalcon\Flash\Direct as Flash;
+
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Http\Response\Cookies;
@@ -58,7 +55,6 @@ $di->setShared('view', function () {
             $compiler->addFunction('number_format','number_format');
             $compiler->addFunction('explode','explode');
             $compiler->addFunction('strtotime','strtotime');
-
             return $volt;
         },
         '.phtml' => PhpEngine::class
@@ -87,7 +83,9 @@ $di->setShared('db', function () {
         unset($params['charset']);
     }
 
-    return new $class($params);
+    $connection = new $class($params);
+
+    return $connection;
 });
 
 
@@ -102,28 +100,19 @@ $di->setShared('modelsMetadata', function () {
  * Register the session flash service with the Twitter Bootstrap classes
  */
 $di->set('flash', function () {
-    $escaper = new Escaper();
-    $flash = new Flash($escaper);
-    $flash->setImplicitFlush(false);
-    $flash->setCssClasses([
+    return new Flash([
         'error'   => 'alert alert-danger',
         'success' => 'alert alert-success',
         'notice'  => 'alert alert-info',
         'warning' => 'alert alert-warning'
     ]);
-
-    return $flash;
 });
 
 /**
  * Start the session the first time some component request the session service
  */
 $di->setShared('session', function () {
-    $session = new SessionManager();
-    $files = new SessionAdapter([
-        'savePath' => sys_get_temp_dir(),
-    ]);
-    $session->setAdapter($files);
+    $session = new SessionAdapter();
     $session->start();
 
     return $session;

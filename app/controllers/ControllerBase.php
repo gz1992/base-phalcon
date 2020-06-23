@@ -1,15 +1,12 @@
 <?php
-declare(strict_types=1);
 
-use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\Controller,Phalcon\Tag;
 
 class ControllerBase extends Controller
 {
     // Implement common logic
     public function beforeExecuteRoute()
     {
-        
-        $this->view->disable();
         $pastedefault = "";
         $logoonshare = "logo.png";
         $titleshare = "WebPage";

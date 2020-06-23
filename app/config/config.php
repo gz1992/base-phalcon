@@ -10,10 +10,9 @@ return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
         'host'        => '127.0.0.1',
-        'username'    => 'piseiro',
-        // 'username'    => 'root',
-        'password'    => 'admin',
-        'dbname'      => 'basephalcon_banco',
+        'username'    => 'root',
+        'password'    => 'Y55i1BWL',
+        'dbname'      => 'akna_banco',
         'charset'     => 'utf8',
     ],
     'application' => [
